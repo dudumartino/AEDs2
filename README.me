@@ -1,0 +1,255 @@
+Fórmula de Gauss: n
+                  Σ i  =  (n(n + 1))/2
+                  0
+
+TAD: lista
+
+insere e remove em qualquer posição
+
+class Lista {
+    int[] array;
+    int n;
+
+    Lista(){ this (6); }
+    Lista(int tamanho){
+        array = new int[tamanho];
+        n = 0;
+    }
+
+    void inserirInicio(int x) throws Exception {
+        if (n >= array.length)
+            throw new Exception("Erro!");
+        
+        //levar elementos para o fim do array
+        for(int i = n; i > 0; i++){
+            array[i] = array[i-1];
+        }
+
+        array[0] = x;
+        n++;
+    }
+
+    void inserirFim(int x) throws Exception {
+        if (n >= array.length)
+            throw new Exception("Erro!");
+        
+        array[n] = x;     //array[n++] = x; tbm ta certo
+        n++;
+    }
+
+    void inserir(int x, int pos) throws Exception {
+        if (n >= array.length || pos < 0 || pos > n)
+            throw new Exception("Erro!");
+
+        //levar elementos para o fim do array
+        for(int i = n; i > pos; i--){
+            array[i] = array[i-1];
+        }
+                                                                               <----LISTA
+        array[pos] = x;
+        n++;
+    }
+
+    int removerInicio() throws Exception {
+        if(n == 0)
+            throw new Exception("Erro!");
+        
+        int resp = array[0];
+        n--;
+
+        for(int i = 0; i < n; i++){
+            array[i] = array[i + 1];
+        }
+
+        return resp;
+    }
+
+    int removerFim() throw Exception {
+        if(n == 0)
+            throw new Exception(Erro!);
+
+        return array[--n];
+    }
+
+    int remover(int pos) throw Exception {
+        if(n == 0 || pos < 0 || pos >= n)
+            throw new Exception(Erro!);
+
+        int resp = array[pos];
+        n--;
+
+        for(int i = pos; i < n; i++){
+            array[i] = array[i+1];
+        }
+
+        return resp;
+    }
+
+    void mostrar() {
+        System.out.print("[ ");
+        for(int i = 0; i < n ; i++){
+            System.out.print(array[i] + " ");
+        } 
+        System.out.println(" ]");
+    }
+}
+
+
+
+
+TAD: pilha
+
+First In, Last out(FILO) 
+ou 
+Last In, First Out(LIFO)
+
+class Pilha {
+
+    primeira solução: IF e RF   <----- melhor opção
+
+    void inserirFim(int x) throws Exception {
+        if (n >= array.length)
+            throw new Exception("Erro!");
+        
+        array[n] = x;     //array[n++] = x; tbm ta certo
+        n++;
+    }
+
+    int removerFim() throw Exception {
+        if(n == 0)
+            throw new Exception(Erro!);
+
+        return array[--n];
+    }
+
+    ou, segunda solução: II e RI  <---- método menos eficiente
+                                                                               <----PILHA
+    void inserirInicio(int x) throws Exception {
+        if (n >= array.length)
+            throw new Exception("Erro!");
+        
+        //levar elementos para o fim do array
+        for(int i = n; i > 0; i++){
+            array[i] = array[i-1];
+        }
+
+        array[0] = x;
+        n++;
+    }
+
+    int removerInicio() throws Exception {
+        if(n == 0)
+            throw new Exception("Erro!");
+        
+        int resp = array[0];
+        n--;
+
+        for(int i = 0; i < n; i++){
+            array[i] = array[i + 1];
+        }
+
+        return resp;
+    }
+
+}
+
+TAD: fila
+
+First In, First Out(FIFO)
+ou
+Last In, Last Out(LILO)
+
+class Fila{
+
+    primeira solução: IF e RI <----remoção não é eficiente
+
+    void inserirFim(int x) throws Exception {
+        if (n >= array.length)
+            throw new Exception("Erro!");
+        
+        array[n] = x;     //array[n++] = x; tbm ta certo
+        n++;
+    }
+
+    int removerInicio() throws Exception {
+        if(n == 0)
+            throw new Exception("Erro!");
+        
+        int resp = array[0];
+        n--;
+
+        for(int i = 0; i < n; i++){
+            array[i] = array[i + 1];
+        }
+
+        return resp;
+    }
+                                                                               <----FILA
+    ou, segunda solução: II e RF <---- inserção não é eficiente
+
+    void inserirInicio(int x) throws Exception {
+        if (n >= array.length)
+            throw new Exception("Erro!");
+        
+        //levar elementos para o fim do array
+        for(int i = n; i > 0; i++){
+            array[i] = array[i-1];
+        }
+
+        array[0] = x;
+        n++;
+    }
+
+    int removerFim() throw Exception {
+        if(n == 0)
+            throw new Exception(Erro!);
+
+        return array[--n];
+    }
+}
+
+TAD fila circular
+
+class FilaCircular{
+    avanço ciruclar:
+    for(int i = 0; i < n+1; i = (i+1) % n)
+
+    retroceder circular: 
+    for(int i = 0; i < n+1; i = (i-1+n) % n)
+}
+
+perguntar se o numero da fila circular sobrescreve o outro, se sim, ele vai pro lixo?
+
+https://github.com/matheusbarrosp/Oficina_AEDs2_2025-2/blob/main/Oficina2/estruturas_lineares/codigo_base/exerc1.c
+
+ordenação Bolha
+
+public void sort() {
+    for (int i = (n-1); 1 > 0; i--) {
+        for (int j = 0; j < i; j++) {
+            if (array[j] > array[j + 1]) {
+                swap(j, j++);
+            }
+        }
+    }
+}
+                                                                               <----BOLHA
+ordenação Inserção
+
+for(int i = 1; i < n; i++) {
+    int temp = array[i];
+    int j = i - 1;
+    while (j >= 0) && (array[j] > temp) {
+        array[j + 1] = array[j]; //deslocamento
+        j--;
+    }
+    array[j + 1] = temp;
+}
+
+melhor caso: array ordenado
+pior caso: array decrescente
+                                                                               <----INSERÇÃO
+
+
+
+            
