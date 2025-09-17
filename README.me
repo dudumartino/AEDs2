@@ -251,5 +251,113 @@ pior caso: array decrescente
                                                                                <----INSERÇÃO
 
 
+public class MergeSort {
 
-            
+    // Método principal que inicia a ordenação
+    public void sort(int[] array) {
+        // Chama o método recursivo com o array completo
+        mergeSort(array, 0, array.length - 1);
+    }
+
+    // Método recursivo que divide o array
+    private void mergeSort(int[] array, int esquerda, int direita) {
+        // Condição de parada da recursão: quando o sub-array tem 1 elemento
+        if (esquerda < direita) {
+            // Encontra o ponto médio do array
+            int meio = (esquerda + direita) / 2;
+
+            // Ordena a primeira metade (da esquerda até o meio)
+            mergeSort(array, esquerda, meio);
+            // Ordena a segunda metade (do meio+1 até a direita)
+            mergeSort(array, meio + 1, direita);
+
+            // Mescla as duas metades já ordenadas
+            merge(array, esquerda, meio, direita);
+        }
+    }
+
+    // Método que mescla (intercala) dois sub-arrays ordenados
+    private void merge(int[] array, int esquerda, int meio, int direita) {
+        // Calcula o tamanho dos sub-arrays temporários
+        int tamanhoEsquerda = meio - esquerda + 1;
+        int tamanhoDireita = direita - meio;
+
+        // Cria arrays temporários para as metades
+        int[] arrayEsquerda = new int[tamanhoEsquerda];
+        int[] arrayDireita = new int[tamanhoDireita];
+
+        // Copia os dados para os arrays temporários
+        for (int i = 0; i < tamanhoEsquerda; ++i) {
+            arrayEsquerda[i] = array[esquerda + i];
+        }
+        for (int j = 0; j < tamanhoDireita; ++j) {
+            arrayDireita[j] = array[meio + 1 + j];
+        }
+                                                                               <----MERGESORT
+        // --- Início da mesclagem ---
+        int i = 0; // Índice inicial do primeiro sub-array
+        int j = 0; // Índice inicial do segundo sub-array
+        int k = esquerda; // Índice inicial do array principal mesclado
+
+        // Compara e intercala os elementos dos arrays temporários no array original
+        while (i < tamanhoEsquerda && j < tamanhoDireita) {
+            if (arrayEsquerda[i] <= arrayDireita[j]) {
+                array[k] = arrayEsquerda[i];
+                i++;
+            } else {
+                array[k] = arrayDireita[j];
+                j++;
+            }
+            k++;
+        }
+
+        // Copia os elementos restantes do arrayEsquerda, se houver
+        while (i < tamanhoEsquerda) {
+            array[k] = arrayEsquerda[i];
+            i++;
+            k++;
+        }
+
+        // Copia os elementos restantes do arrayDireita, se houver
+        while (j < tamanhoDireita) {
+            array[k] = arrayDireita[j];
+            j++;
+            k++;
+        }
+    }
+
+    // Método para testar a implementação
+    public static void main(String[] args) {
+        int[] meuArray = {54, 26, 93, 17, 77, 31, 44, 55, 20};
+
+        System.out.println("Array original:");
+        for (int valor : meuArray) {
+            System.out.print(valor + " ");
+        }
+
+        MergeSort sorter = new MergeSort();
+        sorter.sort(meuArray);
+
+        System.out.println("\n\nArray ordenado:");
+        for (int valor : meuArray) {
+            System.out.print(valor + " ");
+        }
+        System.out.println();
+    }
+}
+
+void quicksort(int esq, int dir) {
+    int i = esq, j = dir, pivo = array[(esq + dir)/2];
+    while(i <= j) {
+        while(array[i] < pivo)
+            i++;
+        while(array[j] > pivo)
+            j--;
+        if(i <= j)
+        {   swap(i,j) i++; j--; }
+    }
+    if(esq < j)
+        quicksort(esq, j);
+    if(i < dir)
+        quicksort(i, dir);
+}
