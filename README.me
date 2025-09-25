@@ -396,3 +396,40 @@ public class Hepasort{
         }
     }
 }
+                                                                               <----SHELLSORT
+public class Shellsort{
+    void shellsort(){
+        int h = 1;
+        do { h = (h * 3) + 1;} while (h < n);
+        do {
+            h /= 3;
+            for(int cor = 0; cor < h; cor++){
+                insercaoPorCor(cor, h);
+            }
+        } while (h != 1);
+    }
+
+    void insercaoPorCor(int cor, int h){
+        for(int i = (h + cor); i < n; i += h){
+            int temp = array[i];
+            int j = i - h;
+            while((j >= 0) && (array[j] > temp)){
+                array[j + h] = array[j];
+                j -= h;
+            }
+            array[j + h] = temp;
+        }
+    }
+
+    void insercao(){
+        for(int i = 1; i < n; i += 1){
+            int tmp = array[i];
+            int j = i - 1;
+            while((j >= 0) && (array[j] > tmp)){           //nao usada, apenas para comparar com a insercaoPorCor
+                array[j + 1] = array[j];
+                j -= 1;
+            }
+            array[j + 1] = tmp;
+        }
+    }
+}
