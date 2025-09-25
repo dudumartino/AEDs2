@@ -345,7 +345,7 @@ public class MergeSort {
         System.out.println();
     }
 }
-
+                                                                               <----QUICKSORT
 void quicksort(int esq, int dir) {
     int i = esq, j = dir, pivo = array[(esq + dir)/2];
     while(i <= j) {
@@ -360,4 +360,39 @@ void quicksort(int esq, int dir) {
         quicksort(esq, j);
     if(i < dir)
         quicksort(i, dir);
+}
+                                                                               <----HEAPSORT
+public class Hepasort{
+    void heapsort(){
+        //construcao do heapsort
+        for(int tam = 2; tam <= n; tam++){
+            construir(tam);
+        }
+
+        //ordenacao propriamente dita 
+        int tam = n;
+        while(tam > 1){
+            swap(1, tam--);
+            reconstruir(tam);
+        }
+    }
+
+    void construir(int tam){
+        for(int i = tam; i > 1 && array[i] > array[i/2]; i /= 2){
+            swap(i, i/2);
+        }
+    }
+
+    void reconstruir(int tam){
+        int i = 1;
+        while(hasFilho(i, tam) == true){
+            int filho = getMaiorFilho(i, tam);
+            if(array[i] < array[filho]){
+                swap(i, filho);
+                i = filho;
+            } else {
+                i = tam;
+            }
+        }
+    }
 }
